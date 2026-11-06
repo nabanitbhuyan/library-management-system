@@ -1,2 +1,2 @@
 # library-management-system
-Python and MySQL based Library Management System for Class 12 CBSE Computer Science Project.
+A library management system built with Python and MySQL for a Class 12 CBSE Computer Science project.
