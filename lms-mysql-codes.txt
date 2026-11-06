@@ -1,0 +1,40 @@
+# CREATE DATABASE:
+CREATE DATABASE lib_mgmt_sys;
+
+# USE DATABASE:
+USE lib_mgmt_sys;
+ 
+# CREATE THE BOOKS TABLE:
+CREATE TABLE books (
+    book_id INT PRIMARY KEY not null,
+    title VARCHAR(100) not null,
+    author VARCHAR(100) not null,
+    category VARCHAR(50) not null,
+    price DECIMAL(10,2) not null,
+    quantity INT not null
+);
+
+# CREATE THE STUDENTS TABLE:
+CREATE TABLE students (
+    student_id INT PRIMARY KEY not null,
+    name VARCHAR(100) not null,
+    class VARCHAR(20) not null,
+    section VARCHAR(10) not null,
+    phone VARCHAR(15) not null
+);
+
+# CREATE THE ISSUED_BOOKS TABLE:
+CREATE TABLE issued_books (
+    issue_id INT AUTO_INCREMENT PRIMARY KEY not null,
+    book_id INT not null,
+    student_id INT not null,
+    issue_date DATE not null,
+    return_date DATE not null,
+    status VARCHAR(20) not null,
+
+    FOREIGN KEY (book_id)
+    REFERENCES books(book_id)
+
+    FOREIGN KEY (student_id)
+    REFERENCES students(student_id)
+);
