@@ -151,16 +151,14 @@ def display_students():
             for d in c:
                 print(d)
         else:
-            print("NO STUDENTS ////////")
+            print("NO STUDENTS FOUND!")
 
         b.close()
         a.close()
 
     except mysql.connector.Error as e:
-        print("Database Error:", e)
+        print("DATABASE ERROR:", e)
 
-
-# DELETE STUDENT
 
 def delete_student():
     a = None
@@ -170,7 +168,7 @@ def delete_student():
         a = connect_database()
         b = a.cursor()
 
-        c = int(input("Enter Student ID to delete: "))
+        c = int(input("Enter Student ID To Delete: "))
 
         b.execute(
             "SELECT * FROM students WHERE student_id = %s",
@@ -180,15 +178,15 @@ def delete_student():
         d = b.fetchone()
 
         if d is None:
-            print("Student not found.")
+            print("STUDENT NOT FOUND.")
             return
 
-        print("\nStudent Details:", d)
+        print("\n=== STUDENT DETAILS ===", d)
 
-        e = input("Confirm deletion? (Y/N): ")
+        e = input("Confirm Deletion? (Y/N): ")
 
         if e.upper() != "Y":
-            print("Deletion cancelled.")
+            print("DELETION HAS BEEN CANCELLED AS PER REQUEST!")
             return
 
         b.execute(
@@ -198,7 +196,7 @@ def delete_student():
         )
 
         if b.fetchone():
-            print("Cannot delete student with an unreturned book.")
+            print("CANNOT DELETE A STUDENT WITH AN UNRETURNED BOOK!.")
             return
 
         b.execute(
@@ -208,10 +206,10 @@ def delete_student():
 
         a.commit()
 
-        print("Student deleted successfully!")
+        print("STUDENT DELETED SUCCESSFULLY!")
 
     except ValueError:
-        print("Invalid Student ID.")
+        print("INVALID STUDENT ID.")
 
     except mysql.connector.Error as e:
         print("Database Error:", e)
@@ -221,9 +219,7 @@ def delete_student():
             b.close()
         if a:
             a.close()
-
-
-# ISSUE BOOK
+            
 
 def issue_book():
     a = None
@@ -244,7 +240,7 @@ def issue_book():
         e = b.fetchone()
 
         if e is None:
-            print("Book not found.")
+            print("BOOK NOT FOUND!")
             return
 
         b.execute(
@@ -255,11 +251,11 @@ def issue_book():
         f = b.fetchone()
 
         if f is None:
-            print("Student not found.")
+            print("STUDENT NOT FOUND!.")
             return
 
         if e[0] <= 0:
-            print("Book is currently unavailable.")
+            print("BOOK IS CURRENTLY UNAVAILABLE.")
             return
 
         b.execute(
@@ -277,16 +273,16 @@ def issue_book():
 
         a.commit()
 
-        print("Book issued successfully!")
-        print("Issue Date:", date.today())
+        print("BOOK ISSUED SUCCESSFULLY AS PER REQUEST!")
+        print("ISSUED DATE:", date.today())
 
     except ValueError:
-        print("Book ID and Student ID must be numbers.")
+        print("BOOK ID AND STUDENT ID MUST BE NUMBERS!")
 
     except mysql.connector.Error as e:
         if a:
             a.rollback()
-        print("Database Error:", e)
+        print("DATABASE ERROR!", e)
 
     finally:
         if b:
@@ -294,8 +290,6 @@ def issue_book():
         if a:
             a.close()
 
-
-# RETURN BOOK
 
 def return_book():
     a = None
@@ -318,7 +312,7 @@ def return_book():
         e = b.fetchone()
 
         if e is None:
-            print("No active issue record found.")
+            print("NO ACTIVE ISSUE FOUND!")
             return
 
         b.execute(
@@ -336,16 +330,16 @@ def return_book():
 
         a.commit()
 
-        print("Book returned successfully!")
-        print("Return Date:", date.today())
+        print("BOOK HAS BEEN RETURNED SUCCESSFULLY!")
+        print("RETURNED DATE:", date.today())
 
     except ValueError:
-        print("Book ID and Student ID must be numbers.")
+        print("BOOK ID AND STUDENT ID MUST BE NUMBERS!")
 
     except mysql.connector.Error as e:
         if a:
             a.rollback()
-        print("Database Error:", e)
+        print("DATABASE ERROR!", e)
 
     finally:
         if b:
@@ -353,8 +347,6 @@ def return_book():
         if a:
             a.close()
 
-
-# UPDATE BOOK
 
 def update_book():
     a = None
@@ -364,7 +356,7 @@ def update_book():
         a = connect_database()
         b = a.cursor()
 
-        c = int(input("Enter Book ID to update: "))
+        c = int(input("Enter Book ID To Update: "))
 
         b.execute(
             "SELECT * FROM books WHERE book_id = %s",
@@ -374,7 +366,7 @@ def update_book():
         d = b.fetchone()
 
         if d is None:
-            print("Book not found.")
+            print("BOOK NOT FOUND!")
             return
 
         e = input("Enter New Title: ")
@@ -384,7 +376,7 @@ def update_book():
         i = int(input("Enter New Quantity: "))
 
         if h < 0 or i < 0:
-            print("Price and quantity cannot be negative.")
+            print("PRICE AND QUANTITY CANNOT BE NEGATIVE!")
             return
 
         b.execute(
@@ -396,10 +388,10 @@ def update_book():
 
         a.commit()
 
-        print("Book updated successfully!")
+        print("BOOK HAS BEEN UPDATED SUCCESSFULLY!")
 
     except ValueError:
-        print("Invalid input.")
+        print("INVALID INPUT!")
 
     except mysql.connector.Error as e:
         print("Database Error:", e)
@@ -410,8 +402,6 @@ def update_book():
         if a:
             a.close()
 
-
-# DELETE BOOK
 
 def delete_book():
     a = None
@@ -421,7 +411,7 @@ def delete_book():
         a = connect_database()
         b = a.cursor()
 
-        c = int(input("Enter Book ID to delete: "))
+        c = int(input("Enter Book ID To Delete: "))
 
         b.execute(
             "SELECT * FROM books WHERE book_id = %s",
@@ -431,15 +421,15 @@ def delete_book():
         d = b.fetchone()
 
         if d is None:
-            print("Book not found.")
+            print("BOOK NOT FOUND!")
             return
 
-        print("\nBook Details:", d)
+        print("\n=== BOOK DETAILS ===", d)
 
         e = input("Confirm deletion? (Y/N): ")
 
         if e.upper() != "Y":
-            print("Deletion cancelled.")
+            print("DELETION HAS BEEN CANCELLED AS PER REQUEST!")
             return
 
         b.execute(
@@ -449,7 +439,7 @@ def delete_book():
         )
 
         if b.fetchone():
-            print("Cannot delete a book that has not been returned.")
+            print("CANNOT DELETE A BOOK IF NOT RETURNED!")
             return
 
         b.execute(
@@ -459,13 +449,13 @@ def delete_book():
 
         a.commit()
 
-        print("Book deleted successfully!")
+        print("BOOK DELETED SUCCESSFULLY!")
 
     except ValueError:
-        print("Invalid Book ID.")
+        print("INVALID BOOK ID.")
 
     except mysql.connector.Error as e:
-        print("Database Error:", e)
+        print("DATABASE ERROR!", e)
 
     finally:
         if b:
@@ -473,8 +463,6 @@ def delete_book():
         if a:
             a.close()
 
-
-# VIEW ISSUED BOOKS
 
 def view_issued_books():
     try:
@@ -499,22 +487,20 @@ def view_issued_books():
         b.execute(c)
         d = b.fetchall()
 
-        print("\n========== ISSUED BOOKS ==========")
+        print("\n=== ISSUED BOOKS ===")
 
         if d:
             for e in d:
                 print(e)
         else:
-            print("No issue records found.")
+            print("NO ISSUE RECORDS FOUND")
 
         b.close()
         a.close()
 
     except mysql.connector.Error as e:
-        print("Database Error:", e)
-
-
-# MAIN MENU
+        print("DATABASE ERROR:", e)
+        
 
 while True:
 
@@ -535,7 +521,7 @@ while True:
     print("11. View Issued Books")
     print("12. Exit")
 
-    a = input("\nEnter your choice: ")
+    a = input("\nPLEASE ENTER YOUR CHOICE: ")
 
     if a == "1":
         display_books()
@@ -571,8 +557,8 @@ while True:
         view_issued_books()
 
     elif a == "12":
-        print("Thank you for using the Library Management System.")
+        print("THANK YOU FOR USING THE LIBRARY MANAGEMENT SYSTEM.")
         break
 
     else:
-        print("Invalid choice. Please enter a number from 1 to 12.")
+        print("INVALID CHOICE! PLEASE ENTER A NUMBER FROM 1 TO 12.")
